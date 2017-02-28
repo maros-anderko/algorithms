@@ -3,7 +3,7 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        ransomNote();
+
     }
 
     public static void arrayLeftRotation() {
@@ -109,6 +109,28 @@ public class Main {
             System.out.println("Yes");
         else
             System.out.println("No");
+    }
+
+    public static boolean isBalanced(String expression) {
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < expression.length();i++) {
+            char c = expression.charAt(i);
+            if (c == '(' || c =='{' || c == '[') {
+                stack.push(c);
+                continue;
+            }
+            if (stack.size() <= 0)
+                return false;
+            if (c == ')' && (stack.pop() != '('))
+                return false;
+            if (c == ']' && (stack.pop() != '['))
+                return false;
+            if (c == '}' && (stack.pop() != '{'))
+                return false;
+        }
+        if (stack.size() != 0)
+            return false;
+        return true;
     }
 
 }
