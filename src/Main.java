@@ -1,12 +1,9 @@
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        anagrams();
+        ransomNote();
     }
 
     public static void arrayLeftRotation() {
@@ -66,4 +63,52 @@ public class Main {
         System.out.println(changes);
         scan.close();
     }
+
+    public static void ransomNote() {
+        Scanner scan = new Scanner(System.in);
+        int m = scan.nextInt();
+        int n = scan.nextInt();
+        Map<String,Integer> magazine = new HashMap<>();
+        for (int i = 0; i<m; i++){
+            String s = scan.next();
+            if (magazine.get(s) != null){
+                int count = magazine.get(s);
+                count++;
+                magazine.put(s,count);
+            } else {
+                magazine.put(s, 1);
+            }
+        }
+
+        Map<String,Integer> notes = new HashMap<>();
+        for (int i = 0; i<n; i++){
+            String s = scan.next();
+            if (notes.get(s) != null){
+                int count = notes.get(s);
+                count++;
+                notes.put(s,count);
+            } else {
+                notes.put(s, 1);
+            }
+        }
+        boolean able = true;
+        for (String s: notes.keySet()) {
+            if (magazine.get(s) == null){
+                able = false;
+                break;
+            } else {
+                int notesC = notes.get(s);
+                int magC = magazine.get(s);
+                if (notesC > magC) {
+                    able = false;
+                    break;
+                }
+            }
+        }
+        if (able)
+            System.out.println("Yes");
+        else
+            System.out.println("No");
+    }
+
 }
